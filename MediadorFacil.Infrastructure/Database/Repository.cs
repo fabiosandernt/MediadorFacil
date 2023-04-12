@@ -18,10 +18,10 @@ namespace MediadorFacil.Infrastructure.Database
         public async Task AddAsync(T entity)
         {
             await this.Query.AddAsync(entity);
-            await this.Context.SaveChangesAsync();
+            //await this.Context.SaveChangesAsync();
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<ICollection<T>> GetAllAsync()
         {
             return await this.Query.ToListAsync();
         }
@@ -51,6 +51,18 @@ namespace MediadorFacil.Infrastructure.Database
         public async Task<T> GetbyExpressionAsync(Expression<Func<T, bool>> expression)
         {
             return await this.Query.FirstOrDefaultAsync(expression);
+        }
+
+        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
+        {
+            var query = this.Query.AsQueryable();
+
+            if (includes != null && includes.Any())
+            {
+                query = includes.Aggregate(query, (current, include) => current.Include(include));
+            }
+
+            return await query.ToListAsync();
         }
     }
 }

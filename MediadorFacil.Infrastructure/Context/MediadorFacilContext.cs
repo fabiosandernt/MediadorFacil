@@ -1,4 +1,5 @@
 ﻿using MediadorFacil.Domain.AccountAggregate;
+using MediadorFacil.Domain.InstrumentoColetivo;
 using Microsoft.EntityFrameworkCore;
 
 namespace MediadorFacil.Infrastructure.Context
@@ -9,6 +10,10 @@ namespace MediadorFacil.Infrastructure.Context
         {
         }
         public DbSet<User> Users { get; set; }
+        public DbSet<ConvencaoColetiva> ConvencaoColetivas { get; set; }
+        public DbSet<Sindicato> Sindicatos { get; set; }
+        public DbSet<Vigencia> Vigencias { get; set; }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseLazyLoadingProxies();

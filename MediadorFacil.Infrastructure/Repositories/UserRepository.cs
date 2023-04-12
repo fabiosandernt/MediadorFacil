@@ -9,6 +9,7 @@ namespace MediadorFacil.Infrastructure.Repositories
     {
         public UserRepository(MediadorFacilContext context) : base(context)
         {
+            
         }
     }
 }

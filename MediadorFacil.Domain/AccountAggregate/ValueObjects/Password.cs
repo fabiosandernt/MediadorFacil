@@ -1,6 +1,7 @@
 ﻿
 namespace MediadorFacil.Domain.AccountAggregate.ValueObjects
 {
+
     public class Password
     {
         public Password()
@@ -14,5 +15,6 @@ namespace MediadorFacil.Domain.AccountAggregate.ValueObjects
 
         public string Valor { get; set; }
     }
+
 
 }

@@ -1,16 +1,15 @@
-﻿using MediadorFacil.Domain.SeedWorks;
-using System.Security.Cryptography;
+﻿using System.Security.Cryptography;
 
-namespace MediadorFacil.Infrastructure.Utils
+namespace MediadorFacil.Domain.SeedWorks
 {
-    public class SecurityUtils : ISecurityUtils
+    public class SecurityUtil
     {
-        public string HashSHA1(string plainText)
+        public static String HashSHA1(String plainText)
         {
             return GetSHA1HashData(plainText);
         }
 
-        private string GetSHA1HashData(string data)
+        private static string GetSHA1HashData(string data)
         {
             SHA1CryptoServiceProvider SHA1 = new SHA1CryptoServiceProvider();
             byte[] byteV = System.Text.Encoding.UTF8.GetBytes(data);

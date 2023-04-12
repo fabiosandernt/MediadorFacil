@@ -3,6 +3,6 @@ namespace MediadorFacil.Domain.SeedWorks
 {
     public interface ISecurityUtils
     {
-        string Hash(string data);
+        string HashSHA1(string plainText);
     }
 }

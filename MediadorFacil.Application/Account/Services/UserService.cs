@@ -2,6 +2,7 @@
 using MediadorFacil.Application.Account.Dtos;
 using MediadorFacil.Domain.AccountAggregate;
 using MediadorFacil.Domain.AccountAggregate.Repository;
+using MediadorFacil.Domain.SeedWorks;
 
 namespace MediadorFacil.Application.Account.Services
 {
@@ -10,16 +11,15 @@ namespace MediadorFacil.Application.Account.Services
         private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         //private readonly IJwtService _jwtService;
-        public UserService()
-        {
-        }
-        public UserService(IUserRepository userRepository, IMapper mapper /*,IJwtService jwtService*/)
+        private readonly IUnitOfWork _unitOfWork;
+       
+        public UserService(IUserRepository userRepository, IMapper mapper, IUnitOfWork unitOfWork /*,IJwtService jwtService*/)
         {
             _userRepository = userRepository;
             _mapper = mapper;
+            _unitOfWork = unitOfWork;
            //_jwtService = jwtService;
         }
-
         public async Task<UserDto> Create(UserDto dto)
         {
             if (await _userRepository.AnyAsync(x => x.Email.Valor == dto.Email.Valor))
@@ -28,15 +28,19 @@ namespace MediadorFacil.Application.Account.Services
             var user = this._mapper.Map<User>(dto);
             user.Id = Guid.NewGuid();
 
+            user.Validate();
+            user.SetPassword();
+
             await _userRepository.AddAsync(user);
+            await _unitOfWork.CommitAsync();
 
             return this._mapper.Map<UserDto>(user);
-
         }
 
-        public async Task<UserDto> Delete(UserDto dto)
+        public async Task<UserDto> Delete(Guid id)
         {
-            var user = this._mapper.Map<User>(dto);
+            var query = await this._userRepository.GetByIdAsync(id);
+            var user = this._mapper.Map<User>(query);
 
             await this._userRepository.RemoveAsync(user);
 
@@ -66,7 +70,7 @@ namespace MediadorFacil.Application.Account.Services
 
             if (user is null) throw new Exception("Usuário não encontrado");
 
-            user.Update(dto.Name, dto.Email, dto.Password, dto.UserType);
+            user.Update(dto.Name, dto.Email.Valor, dto.Password.Valor, dto.UserType);
 
             await this._userRepository.UpdateAsync(user);
 
