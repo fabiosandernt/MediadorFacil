@@ -1,6 +1,6 @@
 ﻿using MediadorFacil.Application.Account.Dtos;
 using MediadorFacil.Application.InstrumentoColetivo.Dtos;
-using MediadorFacil.Domain.AccountAggregate;
+using MediadorFacil.Domain.Account;
 using MediadorFacil.Domain.InstrumentoColetivo;
 
 namespace MediadorFacil.Application.Profile

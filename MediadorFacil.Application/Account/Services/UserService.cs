@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MediadorFacil.Application.Account.Dtos;
-using MediadorFacil.Domain.AccountAggregate;
-using MediadorFacil.Domain.AccountAggregate.Repository;
+using MediadorFacil.Domain.Account;
+using MediadorFacil.Domain.Account.Repository;
 using MediadorFacil.Domain.SeedWorks;
 
 namespace MediadorFacil.Application.Account.Services

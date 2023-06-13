@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Microsoft.EntityFrameworkCore;
-using MediadorFacil.Domain.AccountAggregate;
+using MediadorFacil.Domain.Account;
 
 namespace MediadorFacil.Infrastructure.Mapping
 {

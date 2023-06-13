@@ -1,8 +1,8 @@
 ﻿using FluentValidation;
-using MediadorFacil.Domain.AccountAggregate.ValueObjects;
+using MediadorFacil.Domain.Account.ValueObjects;
 using System.Text.RegularExpressions;
 
-namespace MediadorFacil.Domain.AccountAggregate.Rules
+namespace MediadorFacil.Domain.Account.Rules
 {
     public class EmailValidator : AbstractValidator<Email>
     {

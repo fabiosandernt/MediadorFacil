@@ -23,7 +23,7 @@ namespace MediadorFacil.Infrastructure.Mapping
                 .IsRequired();
 
             builder.HasMany(x => x.Sindicatos)
-                .WithOne(x => x.ConvencaoColetiva).HasForeignKey(x => x.ConvencaoColetivaId);
+                .WithMany(x => x.ConvencaoColetivas);
 
             builder.HasOne(x => x.Vigencia)
                 .WithOne(x => x.ConvencaoColetiva)

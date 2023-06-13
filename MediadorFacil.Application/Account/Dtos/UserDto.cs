@@ -1,5 +1,5 @@
-﻿using MediadorFacil.Domain.AccountAggregate.Enums;
-using MediadorFacil.Domain.AccountAggregate.ValueObjects;
+﻿using MediadorFacil.Domain.Account.Enums;
+using MediadorFacil.Domain.Account.ValueObjects;
 
 namespace MediadorFacil.Application.Account.Dtos
 {

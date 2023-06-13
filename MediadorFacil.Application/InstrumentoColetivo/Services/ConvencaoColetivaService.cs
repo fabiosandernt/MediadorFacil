@@ -7,11 +7,11 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
 {
     public class ConvencaoColetivaService : IConvencaoColetivaService
     {
-        private readonly IConvencaoColetivaRepository _convencaoColetivaRepository;
+        private readonly IIntrumentoColetivoRepository _convencaoColetivaRepository;
         private readonly IMapper _mapper;
 
         public ConvencaoColetivaService(
-            IConvencaoColetivaRepository convencaoColetivaRepository,
+            IIntrumentoColetivoRepository convencaoColetivaRepository,
             IMapper mapper)
         {
             _convencaoColetivaRepository = convencaoColetivaRepository;

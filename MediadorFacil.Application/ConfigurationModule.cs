@@ -1,6 +1,7 @@
 ﻿using MediadorFacil.Application.Account.Services;
 using MediadorFacil.Application.InstrumentoColetivo.Services;
 using MediadorFacil.Domain.SeedWorks;
+using MediadorFacil.Infrastructure.Database;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,7 +22,7 @@ namespace MediadorFacil.Application
 
             services.AddScoped<IUserService, UserService>();    
             services.AddScoped<IConvencaoColetivaService, ConvencaoColetivaService>();
-            services.AddScoped<IUnitOfWork,IUnitOfWork>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             
             services.AddHttpClient();
 

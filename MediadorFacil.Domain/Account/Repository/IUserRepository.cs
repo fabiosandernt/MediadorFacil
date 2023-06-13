@@ -1,6 +1,6 @@
 ﻿using MediadorFacil.Domain.SeedWorks;
 
-namespace MediadorFacil.Domain.AccountAggregate.Repository
+namespace MediadorFacil.Domain.Account.Repository
 {
     public interface IUserRepository : IRepository<User>
     {        

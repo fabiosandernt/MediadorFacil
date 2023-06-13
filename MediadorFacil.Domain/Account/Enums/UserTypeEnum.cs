@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel;
 
-namespace MediadorFacil.Domain.AccountAggregate.Enums
+namespace MediadorFacil.Domain.Account.Enums
 {
     public enum UserTypeEnum: int
     {

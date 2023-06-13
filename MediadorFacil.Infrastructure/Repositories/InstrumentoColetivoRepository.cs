@@ -5,9 +5,9 @@ using MediadorFacil.Domain.InstrumentoColetivo.Repository;
 
 namespace MediadorFacil.Infrastructure.Repositories
 {
-    public class ConvencaoColetivaRepository : Repository<ConvencaoColetiva>, IConvencaoColetivaRepository
+    public class InstrumentoColetivoRepository : Repository<ConvencaoColetiva>, IIntrumentoColetivoRepository
     {
-        public ConvencaoColetivaRepository(MediadorFacilContext context) : base(context)
+        public InstrumentoColetivoRepository(MediadorFacilContext context) : base(context)
         {
            
         }      

@@ -1,4 +1,4 @@
-﻿using MediadorFacil.Domain.AccountAggregate.Repository;
+﻿using MediadorFacil.Domain.Account.Repository;
 using MediadorFacil.Domain.InstrumentoColetivo.Repository;
 using MediadorFacil.Infrastructure.Context;
 using MediadorFacil.Infrastructure.Database;
@@ -19,8 +19,8 @@ namespace MediadorFacil.Infrastructure
 
             services.AddScoped(typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IConvencaoColetivaRepository, ConvencaoColetivaRepository>();
-           
+            services.AddScoped<IIntrumentoColetivoRepository, InstrumentoColetivoRepository>();
+                      
             return services;
         }
     }

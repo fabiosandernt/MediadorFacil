@@ -11,8 +11,7 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Dtos
         public string NomeSindicatoTrabalhador { get; set; }
         public string NomeSindicatoPatronal { get; set; }
         public TipoSindicatoEnum TipoSindicato { get; set; }
-        public ICollection<VigenciaDto> Vigencias { get; set; }
-        
+        public ICollection<VigenciaDto> Vigencias { get; set; }        
         public SindicatoDto Sindicato { get; set; }
     }    
 }

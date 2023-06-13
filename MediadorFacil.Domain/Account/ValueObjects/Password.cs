@@ -1,5 +1,5 @@
 ﻿
-namespace MediadorFacil.Domain.AccountAggregate.ValueObjects
+namespace MediadorFacil.Domain.Account.ValueObjects
 {
 
     public class Password

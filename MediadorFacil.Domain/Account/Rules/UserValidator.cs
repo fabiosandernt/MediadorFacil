@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 
-namespace MediadorFacil.Domain.AccountAggregate.Rules
+namespace MediadorFacil.Domain.Account.Rules
 {
     public class UserValidator : AbstractValidator<User>
     {

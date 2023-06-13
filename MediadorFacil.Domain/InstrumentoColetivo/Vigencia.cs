@@ -7,7 +7,7 @@ namespace MediadorFacil.Domain.InstrumentoColetivo
         public string DataInicio { get; set; }
         public string DataFim { get; set; }
         public Guid ConvencaoColetivaId { get; set; }
-        public ConvencaoColetiva ConvencaoColetiva { get; set; }
+        public virtual ConvencaoColetiva ConvencaoColetiva { get; set; }
 
         //EF
         protected Vigencia()
