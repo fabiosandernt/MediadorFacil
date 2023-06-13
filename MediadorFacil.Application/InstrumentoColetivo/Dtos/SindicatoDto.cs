@@ -10,9 +10,9 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Dtos
 {
     public class SindicatoDto
     {
-        public Guid? Id { get; set; }
         public string RazaoSocial { get; set; }
         public string Cnpj { get; set; }
         public TipoSindicatoEnum? TipoSindicato { get; set; }
+
     }
 }

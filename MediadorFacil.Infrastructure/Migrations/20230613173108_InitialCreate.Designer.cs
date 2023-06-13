@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MediadorFacil.Infrastructure.Migrations
 {
     [DbContext(typeof(MediadorFacilContext))]
-    [Migration("20230612234946_InitialCreate")]
+    [Migration("20230613173108_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
