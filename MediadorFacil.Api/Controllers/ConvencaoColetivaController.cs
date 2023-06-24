@@ -16,12 +16,49 @@ namespace MediadorFacil.Api.Controllers
         {
             _convencaoColetivaService = convencaoColetivaService;
         }
+
+        //[HttpGet]
+        //public async Task<IActionResult> GetAllAsync(string filter)
+        //{
+        //    var query = await _convencaoColetivaService.GetAllAsync(filter);
+        //    return Ok(query);
+        //}
+
         [HttpGet]
-        public async Task<IActionResult> Get()
+        public async Task<IActionResult> GetAllAsync(int pageNumber = 1, int pageSize = 10)
         {
-            var query = await _convencaoColetivaService.GetAll();
+            ICollection<ConvencaoColetivaDto> query = await _convencaoColetivaService.GetAllAsync();
+
+            // Aplicar paginação
+            var totalCount = query.Count();
+            var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+
+            query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
+
+            var result = new
+            {
+                TotalCount = totalCount,
+                TotalPages = totalPages,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                Data = query
+            };
+
+            return Ok(result);
+        }
+
+
+
+        [HttpGet("{id:guid}/ObterPorId")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var query = await this._convencaoColetivaService.GetByIdAsync(id);
+
+            if (query == null) return NotFound();
+
             return Ok(query);
         }
+
         [HttpPost()]
         public async Task<IActionResult> Insert([FromQuery] ConvencaoColetivaDto dto)
         {
@@ -29,7 +66,7 @@ namespace MediadorFacil.Api.Controllers
             
             try
             {
-                //Implementa lógica de inserção manual de convenções coletivas
+                
 
                 return Ok();
             }

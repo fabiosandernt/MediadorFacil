@@ -19,6 +19,9 @@ namespace MediadorFacil.Infrastructure.Migrations
                     NumeroRegistro = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumeroProcesso = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     NumeroSolicitacao = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeSindicatoTrabalhador = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    NomeSindicatoPatronal = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    TipoInstrumentoColetivo = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     DataInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
@@ -65,8 +68,8 @@ namespace MediadorFacil.Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    DataInicio = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DataFim = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DataInicio = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DataFim = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ConvencaoColetivaId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
                     DataInclusao = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DataAlteracao = table.Column<DateTime>(type: "datetime2", nullable: true)
@@ -82,35 +85,6 @@ namespace MediadorFacil.Infrastructure.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
-            migrationBuilder.CreateTable(
-                name: "ConvencaoColetivaSindicato",
-                columns: table => new
-                {
-                    ConvencaoColetivasId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    SindicatosId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ConvencaoColetivaSindicato", x => new { x.ConvencaoColetivasId, x.SindicatosId });
-                    table.ForeignKey(
-                        name: "FK_ConvencaoColetivaSindicato_ConvencoesColetivas_ConvencaoColetivasId",
-                        column: x => x.ConvencaoColetivasId,
-                        principalTable: "ConvencoesColetivas",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ConvencaoColetivaSindicato_Sindicatos_SindicatosId",
-                        column: x => x.SindicatosId,
-                        principalTable: "Sindicatos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ConvencaoColetivaSindicato_SindicatosId",
-                table: "ConvencaoColetivaSindicato",
-                column: "SindicatosId");
-
             migrationBuilder.CreateIndex(
                 name: "IX_Vigencias_ConvencaoColetivaId",
                 table: "Vigencias",
@@ -122,16 +96,13 @@ namespace MediadorFacil.Infrastructure.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "ConvencaoColetivaSindicato");
+                name: "Sindicatos");
 
             migrationBuilder.DropTable(
                 name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "Vigencias");
-
-            migrationBuilder.DropTable(
-                name: "Sindicatos");
 
             migrationBuilder.DropTable(
                 name: "ConvencoesColetivas");

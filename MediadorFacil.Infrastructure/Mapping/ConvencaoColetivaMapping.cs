@@ -18,12 +18,22 @@ namespace MediadorFacil.Infrastructure.Mapping
             builder.Property(x => x.NumeroProcesso)
                  .HasColumnName("NumeroProcesso")
                 .IsRequired();
+
             builder.Property(x => x.NumeroSolicitacao)
                 .HasColumnName("NumeroSolicitacao")
                 .IsRequired();
 
-            builder.HasMany(x => x.Sindicatos)
-                .WithMany(x => x.ConvencaoColetivas);
+            builder.Property(x => x.NomeSindicatoTrabalhador)
+               .HasColumnName("NomeSindicatoTrabalhador")
+               .IsRequired();
+
+            builder.Property(x => x.NomeSindicatoPatronal)
+               .HasColumnName("NomeSindicatoPatronal")
+               .IsRequired();
+
+            builder.Property(x => x.TipoInstrumentoColetivo)
+               .HasColumnName("TipoInstrumentoColetivo")
+               .IsRequired(false);
 
             builder.HasOne(x => x.Vigencia)
                 .WithOne(x => x.ConvencaoColetiva)

@@ -8,8 +8,7 @@ namespace MediadorFacil.Domain.InstrumentoColetivo
         public string RazaoSocial { get; set; }
         public string Cnpj { get; set; }
         public TipoSindicatoEnum? TipoSindicato { get; set; }
-        public virtual ICollection<ConvencaoColetiva> ConvencaoColetivas { get; set; }
-
+        
         //EF
         protected Sindicato()
         {

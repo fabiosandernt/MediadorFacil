@@ -25,21 +25,6 @@ namespace MediadorFacil.Infrastructure.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ConvencaoColetivaSindicato", b =>
-                {
-                    b.Property<Guid>("ConvencaoColetivasId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("SindicatosId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("ConvencaoColetivasId", "SindicatosId");
-
-                    b.HasIndex("SindicatosId");
-
-                    b.ToTable("ConvencaoColetivaSindicato");
-                });
-
             modelBuilder.Entity("MediadorFacil.Domain.Account.User", b =>
                 {
                     b.Property<Guid>("Id")
@@ -77,6 +62,16 @@ namespace MediadorFacil.Infrastructure.Migrations
                     b.Property<DateTime>("DataInclusao")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("NomeSindicatoPatronal")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NomeSindicatoPatronal");
+
+                    b.Property<string>("NomeSindicatoTrabalhador")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("NomeSindicatoTrabalhador");
+
                     b.Property<string>("NumeroProcesso")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
@@ -91,6 +86,10 @@ namespace MediadorFacil.Infrastructure.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)")
                         .HasColumnName("NumeroSolicitacao");
+
+                    b.Property<string>("TipoInstrumentoColetivo")
+                        .HasColumnType("nvarchar(max)")
+                        .HasColumnName("TipoInstrumentoColetivo");
 
                     b.HasKey("Id");
 
@@ -140,17 +139,15 @@ namespace MediadorFacil.Infrastructure.Migrations
                     b.Property<DateTime?>("DataAlteracao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DataFim")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<DateTime>("DataFim")
+                        .HasColumnType("datetime2")
                         .HasColumnName("DataFim");
 
                     b.Property<DateTime>("DataInclusao")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("DataInicio")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)")
+                    b.Property<DateTime>("DataInicio")
+                        .HasColumnType("datetime2")
                         .HasColumnName("DataInicio");
 
                     b.HasKey("Id");
@@ -159,21 +156,6 @@ namespace MediadorFacil.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Vigencias", (string)null);
-                });
-
-            modelBuilder.Entity("ConvencaoColetivaSindicato", b =>
-                {
-                    b.HasOne("MediadorFacil.Domain.InstrumentoColetivo.ConvencaoColetiva", null)
-                        .WithMany()
-                        .HasForeignKey("ConvencaoColetivasId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("MediadorFacil.Domain.InstrumentoColetivo.Sindicato", null)
-                        .WithMany()
-                        .HasForeignKey("SindicatosId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("MediadorFacil.Domain.Account.User", b =>

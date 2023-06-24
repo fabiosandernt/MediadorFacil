@@ -7,7 +7,7 @@ namespace MediadorFacil.Domain.SeedWorks
     {
         Task<T> GetByIdAsync(Guid id);
         Task<ICollection<T>> GetAllAsync();
-        Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes);       
+        Task<IEnumerable<T>> GetAllAsyncInclude(params Expression<Func<T, object>>[] includes);       
         Task AddAsync(T entity);
         Task UpdateAsync(T entity);        
         Task RemoveAsync(T entity);

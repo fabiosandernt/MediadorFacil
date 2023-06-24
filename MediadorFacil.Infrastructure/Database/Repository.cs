@@ -50,10 +50,11 @@ namespace MediadorFacil.Infrastructure.Database
 
         public async Task<T> GetbyExpressionAsync(Expression<Func<T, bool>> expression)
         {
+            
             return await this.Query.FirstOrDefaultAsync(expression);
         }
 
-        public async Task<IEnumerable<T>> GetAllAsync(params Expression<Func<T, object>>[] includes)
+        public async Task<IEnumerable<T>> GetAllAsyncInclude(params Expression<Func<T, object>>[] includes)
         {
             var query = this.Query.AsQueryable();
 

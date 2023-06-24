@@ -7,24 +7,23 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
 {
     public class ConvencaoColetivaService : IConvencaoColetivaService
     {
-        private readonly IIntrumentoColetivoRepository _convencaoColetivaRepository;
+        private readonly IConvencaoColetivaRepository _convencaoColetivaRepository;
         private readonly IMapper _mapper;
 
         public ConvencaoColetivaService(
-            IIntrumentoColetivoRepository convencaoColetivaRepository,
+            IConvencaoColetivaRepository convencaoColetivaRepository,
             IMapper mapper)
         {
             _convencaoColetivaRepository = convencaoColetivaRepository;
             _mapper = mapper;
         }
 
-        public async Task<ICollection<ConvencaoColetivaDto>> GetAll()
+        public async Task<ICollection<ConvencaoColetivaDto>> GetAllAsync()
         {
-            var query = await _convencaoColetivaRepository  
-                .GetAllAsync(x=>x.Vigencia, x=>x.Sindicatos);
-
+            var query = await _convencaoColetivaRepository.GetAllAsync() ;
+            
             return this._mapper.Map<List<ConvencaoColetivaDto>>(query);
-        }
+        }    
 
         public async Task<ConvencaoColetivaDto> Insert(ConvencaoColetivaDto dto)
         {
@@ -56,14 +55,16 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
 
       
 
-        public Task<ConvencaoColetivaDto> GetById(Guid id)
+        public async Task<ConvencaoColetivaDto> GetByIdAsync(Guid id)
         {
-            throw new NotImplementedException();
+            var query = await _convencaoColetivaRepository.GetByIdAsync(id);            
+            return this._mapper.Map<ConvencaoColetivaDto>(query);                  
         }
 
         public Task<ConvencaoColetivaDto> Update(ConvencaoColetivaDto dto)
         {
             throw new NotImplementedException();
-        }
+        }             
+
     }
 }

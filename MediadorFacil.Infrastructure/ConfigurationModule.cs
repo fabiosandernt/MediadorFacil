@@ -19,7 +19,7 @@ namespace MediadorFacil.Infrastructure
 
             services.AddScoped(typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddScoped<IIntrumentoColetivoRepository, InstrumentoColetivoRepository>();
+            services.AddScoped<IConvencaoColetivaRepository, ConvencaoColetivaRepository>();
                       
             return services;
         }
