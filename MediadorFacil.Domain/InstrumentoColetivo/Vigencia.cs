@@ -1,5 +1,4 @@
 ﻿using MediadorFacil.Domain.SeedWorks;
-using System.ComponentModel.DataAnnotations;
 
 namespace MediadorFacil.Domain.InstrumentoColetivo
 {
@@ -13,7 +12,6 @@ namespace MediadorFacil.Domain.InstrumentoColetivo
         //EF
         protected Vigencia()
         {
-
         }
     }
 }

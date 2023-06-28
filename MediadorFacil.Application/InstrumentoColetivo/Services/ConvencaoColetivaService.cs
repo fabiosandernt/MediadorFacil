@@ -20,8 +20,7 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
 
         public async Task<ICollection<ConvencaoColetivaDto>> GetAllAsync()
         {
-            var query = await _convencaoColetivaRepository.GetAllAsync() ;
-            
+            var query = await _convencaoColetivaRepository.GetAllWithInclude();               
             return this._mapper.Map<List<ConvencaoColetivaDto>>(query);
         }    
 
@@ -42,7 +41,6 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
 

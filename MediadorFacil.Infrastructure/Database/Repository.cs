@@ -53,17 +53,6 @@ namespace MediadorFacil.Infrastructure.Database
             
             return await this.Query.FirstOrDefaultAsync(expression);
         }
-
-        public async Task<IEnumerable<T>> GetAllAsyncInclude(params Expression<Func<T, object>>[] includes)
-        {
-            var query = this.Query.AsQueryable();
-
-            if (includes != null && includes.Any())
-            {
-                query = includes.Aggregate(query, (current, include) => current.Include(include));
-            }
-
-            return await query.ToListAsync();
-        }
+               
     }
 }

@@ -10,12 +10,12 @@ namespace MediadorFacil.Domain.InstrumentoColetivo
         public string NomeSindicatoTrabalhador { get; set; }
         public string NomeSindicatoPatronal { get; set; }
         public string TipoInstrumentoColetivo { get; set; }
-        public virtual Vigencia Vigencia { get; set; }      
-        
+        public virtual IList<Vigencia> Vigencias { get; set; }
+
         //EF
         protected ConvencaoColetiva()
         {
-
+            Vigencias = new List<Vigencia>();
         }
 
     }

@@ -4,6 +4,6 @@ namespace MediadorFacil.Domain.InstrumentoColetivo.Repository
 {
     public interface IConvencaoColetivaRepository : IRepository<ConvencaoColetiva>
     {
-        //Task<IQueryable<ConvencaoColetiva>> GetAllWithInclude();
+        Task<IEnumerable<ConvencaoColetiva>> GetAllWithInclude();
     }
 }

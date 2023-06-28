@@ -5,6 +5,7 @@ using MediadorFacil.Infrastructure.Database;
 using MediadorFacil.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 
 namespace MediadorFacil.Infrastructure
 {

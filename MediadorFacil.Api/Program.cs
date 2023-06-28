@@ -1,6 +1,7 @@
 using MediadorFacil.Application;
 using Microsoft.EntityFrameworkCore;
 using MediadorFacil.Infrastructure;
+using Microsoft.Extensions.Options;
 
 public class Program
 {
@@ -14,6 +15,8 @@ public class Program
 
         builder.Services.RegisterApplication(builder.Configuration)
                         .RegisterRepository(builder.Configuration.GetConnectionString("MediadorFacilApi"));
+
+            
         // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddSwaggerGen();

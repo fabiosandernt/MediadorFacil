@@ -11,8 +11,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediadorFacil.Api", "Mediad
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MediadorFacil.Application", "MediadorFacil.Application\MediadorFacil.Application.csproj", "{A2C1C921-7F5C-40A3-AE54-786FF1B23899}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MigrationMediador", "MigrationMediador\MigrationMediador\MigrationMediador.csproj", "{C1898ADB-859C-42E6-B3A0-D4372CACF215}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,10 +33,6 @@ Global
 		{A2C1C921-7F5C-40A3-AE54-786FF1B23899}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2C1C921-7F5C-40A3-AE54-786FF1B23899}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2C1C921-7F5C-40A3-AE54-786FF1B23899}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C1898ADB-859C-42E6-B3A0-D4372CACF215}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C1898ADB-859C-42E6-B3A0-D4372CACF215}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C1898ADB-859C-42E6-B3A0-D4372CACF215}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C1898ADB-859C-42E6-B3A0-D4372CACF215}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

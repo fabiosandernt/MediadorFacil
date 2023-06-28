@@ -35,9 +35,10 @@ namespace MediadorFacil.Infrastructure.Mapping
                .HasColumnName("TipoInstrumentoColetivo")
                .IsRequired(false);
 
-            builder.HasOne(x => x.Vigencia)
-                .WithOne(x => x.ConvencaoColetiva)
-                .HasForeignKey<Vigencia>(x => x.ConvencaoColetivaId);
+            builder.HasMany(x => x.Vigencias)
+                 .WithOne(x => x.ConvencaoColetiva)
+                 .HasForeignKey(x => x.ConvencaoColetivaId);
+
         }
     }
 }

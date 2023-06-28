@@ -1,6 +1,7 @@
 ﻿using MediadorFacil.Domain.Account;
 using MediadorFacil.Domain.InstrumentoColetivo;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 
 namespace MediadorFacil.Infrastructure.Context
 {
