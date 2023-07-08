@@ -18,36 +18,34 @@ namespace MediadorFacil.Api.Controllers
         }
 
         [HttpGet]
+        [Route("api/[controller]")]
         public async Task<IActionResult> GetAllAsync()
         {
-            var query = await _convencaoColetivaService.GetAllAsync();
-            return Ok(query);
+            try
+            {
+                var result = await _convencaoColetivaService.GetAllAsync();
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        //[HttpGet]
-        //public async Task<IActionResult> GetAllAsync(int pageNumber = 1, int pageSize = 10)
-        //{
-        //    ICollection<ConvencaoColetivaDto> query = await _convencaoColetivaService.GetAllAsync();
-
-        //    // Aplicar paginação
-        //    var totalCount = query.Count();
-        //    var totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-
-        //    query = query.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToList();
-
-        //    var result = new
-        //    {
-        //        TotalCount = totalCount,
-        //        TotalPages = totalPages,
-        //        PageNumber = pageNumber,
-        //        PageSize = pageSize,
-        //        Data = query
-        //    };
-
-        //    return Ok(result);
-        //}
-
-
+        [HttpGet]
+        [Route("api/[controller]/paginado")]
+        public async Task<IActionResult> GetAllAsync([FromQuery]int page, int pageSize)
+        {
+            try
+            {
+                var result = await _convencaoColetivaService.GetAllAsync(page, pageSize);
+                return Ok(result);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
 
         [HttpGet("{id:guid}/ObterPorId")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)

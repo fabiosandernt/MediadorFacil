@@ -2,6 +2,8 @@
 using MediadorFacil.Application.InstrumentoColetivo.Dtos;
 using MediadorFacil.Domain.InstrumentoColetivo;
 using MediadorFacil.Domain.InstrumentoColetivo.Repository;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace MediadorFacil.Application.InstrumentoColetivo.Services
 {
@@ -18,32 +20,9 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
             _mapper = mapper;
         }
 
-        public async Task<ICollection<ConvencaoColetivaDto>> GetAllAsync()
+        public Task<ConvencaoColetivaDto> Create(ConvencaoColetivaDto dto)
         {
-            var query = await _convencaoColetivaRepository.GetAllWithInclude();               
-            return this._mapper.Map<List<ConvencaoColetivaDto>>(query);
-        }    
-
-        public async Task<ConvencaoColetivaDto> Insert(ConvencaoColetivaDto dto)
-        {
-            
-            if (await _convencaoColetivaRepository.AnyAsync(x => x.NumeroRegistro == dto.NumeroRegistro))
-                throw new Exception("Já existe uma CCT cadastrado com o Nº de Registro");
-           
-            try
-            {
-                var convencaoColetiva = this._mapper.Map<ConvencaoColetiva>(dto); 
-                convencaoColetiva.Id = Guid.NewGuid();
-                
-                await this._convencaoColetivaRepository.AddAsync(convencaoColetiva);
-
-                return this._mapper.Map<ConvencaoColetivaDto>(convencaoColetiva);
-            }
-            catch (Exception)
-            {
-                throw;
-            }
-
+            throw new NotImplementedException();
         }
 
         public Task<ConvencaoColetivaDto> Delete(Guid id)
@@ -51,18 +30,50 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
             throw new NotImplementedException();
         }
 
-      
-
-        public async Task<ConvencaoColetivaDto> GetByIdAsync(Guid id)
+        public Task<ICollection<ConvencaoColetivaDto>> ExecuteQueryAsync(string query, params object[] parameters)
         {
-            var query = await _convencaoColetivaRepository.GetByIdAsync(id);            
-            return this._mapper.Map<ConvencaoColetivaDto>(query);                  
+            throw new NotImplementedException();
+        }
+
+        public async Task<ICollection<ConvencaoColetivaDto>> GetAllAsync()
+        {
+            var query = await _convencaoColetivaRepository.GetAllAsync();
+            var result  = _mapper.Map<List<ConvencaoColetivaDto>>(query);
+            return result;
+        }
+
+        public async Task<ICollection<ConvencaoColetivaDto>> GetAllAsync(int page, int pageSize)
+        {
+            var query = await _convencaoColetivaRepository.GetAllAsync(page, pageSize);
+            var result = _mapper.Map<ICollection<ConvencaoColetivaDto>>(query);            
+            return result;
+        }
+
+        public async Task<ICollection<ConvencaoColetivaDto>> GetAllAsync(Expression<Func<ConvencaoColetivaDto, object>> orderBy, bool ascending = true)
+        {
+            var orderByExpression = _mapper.Map<Expression<Func<ConvencaoColetiva, object>>>(orderBy);
+
+            var query = await _convencaoColetivaRepository.GetAllAsync(orderByExpression, ascending);
+
+            var result = _mapper.Map<ICollection<ConvencaoColetivaDto>>(query);
+
+            return result;
+        }
+
+
+        public Task<ConvencaoColetivaDto> GetByExpressionAsync(Expression<Func<ConvencaoColetivaDto, bool>> expression)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ConvencaoColetivaDto> GetByIdAsync(Guid id)
+        {
+            throw new NotImplementedException();
         }
 
         public Task<ConvencaoColetivaDto> Update(ConvencaoColetivaDto dto)
         {
             throw new NotImplementedException();
-        }             
-
+        }
     }
 }

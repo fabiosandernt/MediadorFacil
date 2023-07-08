@@ -2,6 +2,8 @@
 using MediadorFacil.Application.Account.Services;
 using MediadorFacil.Infrastructure.Utils;
 using Microsoft.AspNetCore.Mvc;
+using System;
+using System.Threading.Tasks;
 
 namespace MediadorFacil.Api.Controllers
 {
@@ -10,37 +12,39 @@ namespace MediadorFacil.Api.Controllers
     //[Authorize]
     public class UserController : ControllerBase
     {
-        private readonly IUserService userService;    
+        private readonly IUserService _userService;
+
         public UserController(IUserService userService)
         {
-            this.userService = userService;          
+            _userService = userService;
         }
 
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            var query = await this.userService.GetAll();
-            return Ok(query);
+            var users = await _userService.GetAll();
+            return Ok(users);
         }
 
-        [HttpGet("{id:guid}/ObterPorId")]
-        public async Task<IActionResult> GetById ([FromRoute] Guid id)
-        { 
-            var query = await this.userService.GetById(id);
-            
-            if (query== null) return NotFound();
-            
-            return Ok(query);
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> GetById([FromRoute] Guid id)
+        {
+            var user = await _userService.GetById(id);
+            if (user == null)
+                return NotFound();
+
+            return Ok(user);
         }
 
-        [HttpPost()]
+        [HttpPost]
         public async Task<IActionResult> Create([FromBody] UserDto dto)
         {
-            if (dto == null) return BadRequest("Objeto nulo");
+            if (dto == null)
+                return BadRequest("Objeto nulo");
 
             try
             {
-                var user = await this.userService.Create(dto);
+                var user = await _userService.Create(dto);
                 return Created($"{user.Name}", user.Email.Valor);
             }
             catch (Exception e)
@@ -49,15 +53,16 @@ namespace MediadorFacil.Api.Controllers
             }
         }
 
-        [HttpPut()]
-        public async Task<IActionResult> Update([FromBody] UserDto dto) 
-        { 
-            if(dto == null) return BadRequest("Objeto vazio ou nulo");
+        [HttpPut]
+        public async Task<IActionResult> Update([FromBody] UserDto dto)
+        {
+            if (dto == null)
+                return BadRequest("Objeto vazio ou nulo");
 
             try
             {
-                var query = await this.userService.Update(dto);
-                return Ok(query);
+                var user = await _userService.Update(dto);
+                return Ok(user);
             }
             catch (Exception e)
             {
@@ -68,17 +73,18 @@ namespace MediadorFacil.Api.Controllers
         [HttpDelete("{id:guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
-            if (id == null) return BadRequest("Objeto vazio ou nulo");
+            if (id == Guid.Empty)
+                return BadRequest("Objeto vazio ou nulo");
 
             try
             {
-                var query = await this.userService.Delete(id);
-                return Ok(query);
+                var user = await _userService.Delete(id);
+                return Ok(user);
             }
             catch (Exception e)
             {
                 return BadRequest(new ApiResponseError(e.Message));
             }
-        } 
+        }
     }
 }

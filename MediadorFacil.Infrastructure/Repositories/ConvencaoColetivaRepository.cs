@@ -12,11 +12,6 @@ namespace MediadorFacil.Infrastructure.Repositories
         {
             
         }
-
-        public async Task<IEnumerable<ConvencaoColetiva>> GetAllWithInclude()
-        {
-            var query = await this.Query.Include(x=>x.Vigencias).ToListAsync();
-            return query;
-        }
+               
     }
 }

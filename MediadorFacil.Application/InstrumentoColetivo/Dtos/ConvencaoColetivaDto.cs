@@ -10,13 +10,9 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Dtos
         public string NumeroProcesso { get; set; }
         public string NumeroSolicitacao { get; set; }
         public string TipoInstrumentoColetivo { get; set; }
-        public IList<VigenciaDto> Vigencias { get; set; } // = new List<VigenciaDto>();
+        public IList<VigenciaDto> Vigencias { get; set; } 
         public string NomeSindicatoTrabalhador { get; set; }
         public string NomeSindicatoPatronal { get; set; }
-
-        //public ConvencaoColetivaDto()
-        //{
-        //    Vigencias = new List<VigenciaDto>();
-        //}
+       
     }
 }

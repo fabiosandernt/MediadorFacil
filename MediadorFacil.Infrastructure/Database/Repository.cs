@@ -1,7 +1,10 @@
 ﻿using MediadorFacil.Domain.SeedWorks;
 using MediadorFacil.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 
 namespace MediadorFacil.Infrastructure.Database
 {
@@ -12,47 +15,96 @@ namespace MediadorFacil.Infrastructure.Database
 
         public Repository(MediadorFacilContext context)
         {
-            this.Context = context;
-            this.Query = Context.Set<T>();
+            Context = context;
+            Query = Context.Set<T>();
         }
+
         public async Task AddAsync(T entity)
         {
-            await this.Query.AddAsync(entity);
-            //await this.Context.SaveChangesAsync();
+            await Query.AddAsync(entity);
         }
 
         public async Task<ICollection<T>> GetAllAsync()
         {
-            return await this.Query.ToListAsync();
+            return await Query.ToListAsync();
+        }
+
+        public async Task<ICollection<T>> GetAllAsync(int page, int pageSize)
+        {
+           return await Query.Skip((page - 1) * pageSize).Take(pageSize).ToListAsync();
+        }
+
+        public async Task<ICollection<T>> GetAllAsync(Expression<Func<T, object>> orderBy, bool ascending = true)
+        {
+            IQueryable<T> query = Query;
+
+            if (orderBy != null)
+            {
+                query = ascending ? query.OrderBy(orderBy) : query.OrderByDescending(orderBy);
+            }
+
+            return await query.ToListAsync();
+        }
+
+        public async Task<ICollection<T>> ExecuteQueryAsync(string query, params object[] parameters)
+        {
+            return await Query.FromSqlRaw(query, parameters).ToListAsync();
         }
 
         public async Task<T> GetByIdAsync(Guid id)
         {
-            return await this.Query.FindAsync(id);
+            return await Query.FindAsync(id);
         }
 
         public async Task RemoveAsync(T entity)
         {
-            this.Query.Remove(entity);
-            await this.Context.SaveChangesAsync();
+            Query.Remove(entity);
+            await Context.SaveChangesAsync();
         }
 
         public async Task UpdateAsync(T entity)
         {
-            this.Query.Update(entity); 
-            await this.Context.SaveChangesAsync();
+            Query.Update(entity);
+            await Context.SaveChangesAsync();
         }
 
         public Task<bool> AnyAsync(Expression<Func<T, bool>> expression)
         {
-            return this.Query.AnyAsync(expression);
+            return Query.AnyAsync(expression);
         }
 
-        public async Task<T> GetbyExpressionAsync(Expression<Func<T, bool>> expression)
+        public async Task<T> GetByExpressionAsync(Expression<Func<T, bool>> expression)
         {
-            
-            return await this.Query.FirstOrDefaultAsync(expression);
+            return await Query.FirstOrDefaultAsync(expression);
         }
-               
+
+        public async Task<int> CountAsync(Expression<Func<T, bool>> expression)
+        {
+            return await Query.CountAsync(expression);
+        }
+
+        public async Task<int> CountAsync()
+        {
+            return await Query.CountAsync();
+        }
+
+        public Task BeginTransactionAsync()
+        {
+            // Lógica de início da transação
+            return Task.CompletedTask;
+        }
+
+        public async Task CommitTransactionAsync()
+        {
+            // Lógica de confirmação da transação
+            await Context.SaveChangesAsync();
+        }
+
+        public Task RollbackTransactionAsync()
+        {
+            // Lógica de reversão da transação
+            // Exemplo: Context.Dispose(); para descartar as alterações não confirmadas
+            return Task.CompletedTask;
+        }
     }
 }
