@@ -14,5 +14,7 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Dtos
         public List<SindicatoDto> Sindicatos { get; set; }
         public List<VigenciaDto> Vigencias { get; set; }
 
+        public string UrlVisualizar { get; set; }
+
     }
 }

@@ -18,7 +18,6 @@ namespace MediadorFacil.Api.Controllers
         }
 
         [HttpGet]
-        [Route("api/[controller]")]
         public async Task<IActionResult> GetAllAsync()
         {
             try
@@ -32,9 +31,8 @@ namespace MediadorFacil.Api.Controllers
             }
         }
 
-        [HttpGet]
-        [Route("api/[controller]/paginado")]
-        public async Task<IActionResult> GetAllAsync([FromQuery]int page, int pageSize)
+        [HttpGet("paginado")]
+        public async Task<IActionResult> GetAllAsync([FromQuery] int page = 1, int pageSize = 10)
         {
             try
             {
@@ -47,29 +45,33 @@ namespace MediadorFacil.Api.Controllers
             }
         }
 
-        [HttpGet("{id:guid}/ObterPorId")]
+        [HttpGet("{id:guid}")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
-            var query = await this._convencaoColetivaService.GetByIdAsync(id);
-            if (query == null) return NotFound();
+            var query = await _convencaoColetivaService.GetByIdAsync(id);
+            if (query == null)
+                return NotFound();
+
             return Ok(query);
         }
 
-        [HttpPost()]
-        public async Task<IActionResult> Insert([FromQuery] ConvencaoColetivaDto dto)
+        [HttpPost]
+        public async Task<IActionResult> Insert([FromBody] ConvencaoColetivaDto dto)
         {
-            if (dto == null) return BadRequest("Objeto nulo");
-            
+            if (dto == null)
+                return BadRequest("Objeto nulo");
+
             try
-            {              
+            {
+                // Chame o serviço de inserção aqui
+                // Exemplo: await _convencaoColetivaService.InsertAsync(dto);
+
                 return Ok();
             }
             catch (Exception e)
             {
-
-                return BadRequest(new ApiResponseError(e.Message)); ;
+                return BadRequest(new ApiResponseError(e.Message));
             }
         }
-
     }
 }

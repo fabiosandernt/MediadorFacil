@@ -15,6 +15,5 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
         Task<ConvencaoColetivaDto> Update(ConvencaoColetivaDto dto);
         Task<ConvencaoColetivaDto> Delete(Guid id);
         Task<ConvencaoColetivaDto> GetByExpressionAsync(Expression<Func<ConvencaoColetivaDto, bool>> expression);
-
     }
 }

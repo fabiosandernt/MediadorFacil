@@ -19,7 +19,6 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
             _convencaoColetivaRepository = convencaoColetivaRepository;
             _mapper = mapper;
         }
-
         public Task<ConvencaoColetivaDto> Create(ConvencaoColetivaDto dto)
         {
             throw new NotImplementedException();
@@ -45,7 +44,12 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
         public async Task<ICollection<ConvencaoColetivaDto>> GetAllAsync(int page, int pageSize)
         {
             var query = await _convencaoColetivaRepository.GetAllAsync(page, pageSize);
-            var result = _mapper.Map<ICollection<ConvencaoColetivaDto>>(query);            
+            var result = _mapper.Map<ICollection<ConvencaoColetivaDto>>(query);
+         
+            foreach (var item in result)
+            {
+                item.UrlVisualizar = GenerateUrlVisualizar(item.NumeroSolicitacao);
+            }
             return result;
         }
 
@@ -74,6 +78,13 @@ namespace MediadorFacil.Application.InstrumentoColetivo.Services
         public Task<ConvencaoColetivaDto> Update(ConvencaoColetivaDto dto)
         {
             throw new NotImplementedException();
+        }
+
+        private string GenerateUrlVisualizar(string numeroSolicitacao)
+        {
+            string urlBase = "http://www3.mte.gov.br/sistemas/mediador/Resumo/ResumoVisualizar?NrSolicitacao=";
+            string url = urlBase + numeroSolicitacao;
+            return url;
         }
     }
 }
