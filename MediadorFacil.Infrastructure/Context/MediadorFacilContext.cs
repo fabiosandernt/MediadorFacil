@@ -1,7 +1,5 @@
 ﻿using MediadorFacil.Domain.Account;
-using MediadorFacil.Domain.InstrumentoColetivo;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
 
 namespace MediadorFacil.Infrastructure.Context
 {
@@ -10,10 +8,12 @@ namespace MediadorFacil.Infrastructure.Context
         public MediadorFacilContext(DbContextOptions<MediadorFacilContext> options) : base(options)
         {
         }
-                
+
+        public DbSet<Empresa> Empresas { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseLazyLoadingProxies();
+            //optionsBuilder.UseLazyLoadingProxies();
             base.OnConfiguring(optionsBuilder);
         }
 

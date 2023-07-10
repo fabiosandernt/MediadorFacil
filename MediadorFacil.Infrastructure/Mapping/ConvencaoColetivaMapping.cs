@@ -39,6 +39,10 @@ namespace MediadorFacil.Infrastructure.Mapping
                  .WithOne(x => x.ConvencaoColetiva)
                  .HasForeignKey(x => x.ConvencaoColetivaId);
 
+            builder.HasMany(x => x.Sindicatos)
+               .WithMany(x => x.ConvencaoColetivas);
+               
+
         }
     }
 }

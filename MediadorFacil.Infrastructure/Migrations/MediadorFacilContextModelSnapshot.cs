@@ -18,12 +18,69 @@ namespace MediadorFacil.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.4")
-                .HasAnnotation("Proxies:ChangeTracking", false)
-                .HasAnnotation("Proxies:CheckEquality", false)
-                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("ConvencaoColetivaSindicato", b =>
+                {
+                    b.Property<Guid>("ConvencaoColetivasId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SindicatosId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("ConvencaoColetivasId", "SindicatosId");
+
+                    b.HasIndex("SindicatosId");
+
+                    b.ToTable("ConvencaoColetivaSindicato");
+                });
+
+            modelBuilder.Entity("EmpresaSindicato", b =>
+                {
+                    b.Property<Guid>("EmpresasId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SindicatosId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("EmpresasId", "SindicatosId");
+
+                    b.HasIndex("SindicatosId");
+
+                    b.ToTable("EmpresaSindicato");
+                });
+
+            modelBuilder.Entity("MediadorFacil.Domain.Account.Empresa", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Cnpj")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("DataAlteracao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DataInclusao")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("RazaoSocial")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Empresas", (string)null);
+                });
 
             modelBuilder.Entity("MediadorFacil.Domain.Account.User", b =>
                 {
@@ -152,10 +209,50 @@ namespace MediadorFacil.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ConvencaoColetivaId")
-                        .IsUnique();
+                    b.HasIndex("ConvencaoColetivaId");
 
                     b.ToTable("Vigencias", (string)null);
+                });
+
+            modelBuilder.Entity("ConvencaoColetivaSindicato", b =>
+                {
+                    b.HasOne("MediadorFacil.Domain.InstrumentoColetivo.ConvencaoColetiva", null)
+                        .WithMany()
+                        .HasForeignKey("ConvencaoColetivasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MediadorFacil.Domain.InstrumentoColetivo.Sindicato", null)
+                        .WithMany()
+                        .HasForeignKey("SindicatosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EmpresaSindicato", b =>
+                {
+                    b.HasOne("MediadorFacil.Domain.Account.Empresa", null)
+                        .WithMany()
+                        .HasForeignKey("EmpresasId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("MediadorFacil.Domain.InstrumentoColetivo.Sindicato", null)
+                        .WithMany()
+                        .HasForeignKey("SindicatosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("MediadorFacil.Domain.Account.Empresa", b =>
+                {
+                    b.HasOne("MediadorFacil.Domain.Account.User", "User")
+                        .WithMany("Empresas")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("MediadorFacil.Domain.Account.User", b =>
@@ -207,18 +304,22 @@ namespace MediadorFacil.Infrastructure.Migrations
             modelBuilder.Entity("MediadorFacil.Domain.InstrumentoColetivo.Vigencia", b =>
                 {
                     b.HasOne("MediadorFacil.Domain.InstrumentoColetivo.ConvencaoColetiva", "ConvencaoColetiva")
-                        .WithOne("Vigencia")
-                        .HasForeignKey("MediadorFacil.Domain.InstrumentoColetivo.Vigencia", "ConvencaoColetivaId")
+                        .WithMany("Vigencias")
+                        .HasForeignKey("ConvencaoColetivaId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("ConvencaoColetiva");
                 });
 
+            modelBuilder.Entity("MediadorFacil.Domain.Account.User", b =>
+                {
+                    b.Navigation("Empresas");
+                });
+
             modelBuilder.Entity("MediadorFacil.Domain.InstrumentoColetivo.ConvencaoColetiva", b =>
                 {
-                    b.Navigation("Vigencia")
-                        .IsRequired();
+                    b.Navigation("Vigencias");
                 });
 #pragma warning restore 612, 618
         }

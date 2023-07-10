@@ -22,7 +22,11 @@ namespace MediadorFacil.Infrastructure.Mapping
             builder.OwnsOne(x => x.Email, p =>
             {
                 p.Property(f => f.Valor).HasColumnName("Email").IsRequired().HasMaxLength(1024);
-            });            
+            });
+
+            builder.HasMany(x => x.Empresas)
+                   .WithOne(x => x.User)
+                   .HasForeignKey(x => x.UserId);       
 
         }
     }

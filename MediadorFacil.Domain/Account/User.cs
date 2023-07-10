@@ -13,6 +13,8 @@ namespace MediadorFacil.Domain.Account
         public Password Password { get; set; } 
         public UserTypeEnum UserType { get; set; }
 
+        public ICollection<Empresa> Empresas { get; set; } = new List<Empresa>();   
+
         private readonly ISecurityUtils _securityUtils;
         protected User(ISecurityUtils securityUtils)
         {

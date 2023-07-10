@@ -10,7 +10,7 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
 
         // Add services to the container.
-
+        builder.Services.AddRazorPages();
         builder.Services.AddControllers();
 
         builder.Services.RegisterApplication(builder.Configuration)
@@ -41,6 +41,7 @@ public class Program
         app.UseAuthorization();
 
         app.MapControllers();
+        app.MapRazorPages();
 
         app.Run();
     }

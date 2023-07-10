@@ -18,6 +18,9 @@ namespace MediadorFacil.Application.Profile
             CreateMap<Sindicato, SindicatoDto>();
             CreateMap<SindicatoDto, Sindicato>();
 
+            CreateMap<Empresa, EmpresaDto>();
+            CreateMap<EmpresaDto, Empresa>();
+
             CreateMap<Vigencia, VigenciaDto>();
             CreateMap<VigenciaDto, Vigencia>();           
         }

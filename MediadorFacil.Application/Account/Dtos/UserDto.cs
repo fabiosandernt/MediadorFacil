@@ -10,5 +10,6 @@ namespace MediadorFacil.Application.Account.Dtos
         public Email Email { get; set; }
         public Password Password { get; set; }
         public UserTypeEnum UserType { get; set; }
+        public ICollection<EmpresaDto> Empresas { get; set; }
     }
 }

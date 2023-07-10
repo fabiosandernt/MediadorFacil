@@ -1,4 +1,5 @@
-﻿using MediadorFacil.Domain.SeedWorks;
+﻿using MediadorFacil.Domain.Account;
+using MediadorFacil.Domain.SeedWorks;
 
 namespace MediadorFacil.Domain.InstrumentoColetivo
 {
@@ -10,12 +11,13 @@ namespace MediadorFacil.Domain.InstrumentoColetivo
         public string NomeSindicatoTrabalhador { get; set; }
         public string NomeSindicatoPatronal { get; set; }
         public string TipoInstrumentoColetivo { get; set; }
-        public virtual IList<Vigencia> Vigencias { get; set; }
-
+        public List<Sindicato> Sindicatos { get; set; } = new List<Sindicato>();
+        public List<Vigencia> Vigencias { get; set; } = new List<Vigencia>();
+                
         //EF
         protected ConvencaoColetiva()
         {
-            Vigencias = new List<Vigencia>();
+            
         }
 
     }
